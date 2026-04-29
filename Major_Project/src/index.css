@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark DevOps Terminal — default to dark */
+    --background: 222 47% 5%;
+    --foreground: 150 30% 90%;
+
+    --card: 222 40% 8%;
+    --card-foreground: 150 30% 92%;
+
+    --popover: 222 45% 7%;
+    --popover-foreground: 150 30% 92%;
+
+    --primary: 142 90% 55%;            /* neon green */
+    --primary-foreground: 222 47% 5%;
+
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 150 30% 92%;
+
+    --muted: 222 25% 12%;
+    --muted-foreground: 150 10% 60%;
+
+    --accent: 188 95% 55%;             /* cyan */
+    --accent-foreground: 222 47% 5%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 30% 16%;
+    --input: 222 30% 14%;
+    --ring: 142 90% 55%;
+
+    --radius: 0.4rem;
+
+    /* Terminal-specific */
+    --terminal-bg: 222 50% 4%;
+    --terminal-line: 222 30% 12%;
+    --neon-green: 142 90% 55%;
+    --neon-cyan: 188 95% 55%;
+    --neon-amber: 38 95% 60%;
+    --neon-magenta: 320 90% 65%;
+
+    --gradient-glow: radial-gradient(60% 60% at 50% 0%, hsl(142 90% 55% / 0.18) 0%, transparent 70%);
+    --gradient-pipe: linear-gradient(90deg, hsl(var(--neon-green)) 0%, hsl(var(--neon-cyan)) 100%);
+    --shadow-neon: 0 0 24px hsl(var(--neon-green) / 0.4), 0 0 60px hsl(var(--neon-green) / 0.15);
+    --shadow-cyan: 0 0 18px hsl(var(--neon-cyan) / 0.45);
+
+    --sidebar-background: 222 45% 6%;
+    --sidebar-foreground: 150 20% 80%;
+    --sidebar-primary: 142 90% 55%;
+    --sidebar-primary-foreground: 222 47% 5%;
+    --sidebar-accent: 222 30% 12%;
+    --sidebar-accent-foreground: 150 20% 90%;
+    --sidebar-border: 222 30% 16%;
+    --sidebar-ring: 142 90% 55%;
+  }
+
+  .dark { /* same as root */
+    --background: 222 47% 5%;
+    --foreground: 150 30% 90%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body, #root { @apply bg-background text-foreground; min-height: 100%; }
+  body {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(142 90% 55% / 0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 110%, hsl(188 95% 55% / 0.08), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .text-neon { color: hsl(var(--neon-green)); text-shadow: 0 0 12px hsl(var(--neon-green) / 0.6); }
+  .text-cyan { color: hsl(var(--neon-cyan)); text-shadow: 0 0 10px hsl(var(--neon-cyan) / 0.5); }
+  .text-amber { color: hsl(var(--neon-amber)); }
+  .border-neon { border-color: hsl(var(--neon-green) / 0.5); box-shadow: var(--shadow-neon); }
+  .bg-terminal { background-color: hsl(var(--terminal-bg)); }
+  .bg-gradient-pipe { background-image: var(--gradient-pipe); }
+  .scanline {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      hsl(150 30% 90% / 0.025) 3px,
+      transparent 4px
+    );
+  }
+  .grid-dots {
+    background-image: radial-gradient(hsl(150 30% 90% / 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .glow-cursor::after {
+    content: '▋';
+    color: hsl(var(--neon-green));
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes pipeFlow {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .pipe-flow {
+    background-image: linear-gradient(90deg,
+      hsl(var(--neon-green) / 0.2) 0%,
+      hsl(var(--neon-cyan)) 50%,
+      hsl(var(--neon-green) / 0.2) 100%);
+    background-size: 200% 100%;
+    animation: pipeFlow 2.5s linear infinite;
+  }
+}
